@@ -5,6 +5,39 @@ public class AlgGuia1 {
         System.out.println(polinomioEvaluado(new int[]{2,8,1},3));
         System.out.println(hornerIterative(new int[]{2,8,1},3));
     }
+
+    public static int sumOfNaturals(int n){ // Suma de numeros naturales. Ej 1.a resuelto por Gauss
+        return n*(n+1)/2;
+    }
+    public static int sumOfNaturalsIterative(int n){ // Suma de numeros naturales. Ej 1.a resuelto por un for
+        int result = 0;
+        for (int i = 1; i <= n; i++) {
+            result += i;
+        }
+        return result;
+    }
+    public static int sumOfNaturalsRecursive(int n){ // Suma de numeros naturales. Ej 1.a resuelto por Recursividad
+        if(n==0){
+            return 0;
+        }
+        return n+sumOfNaturalsRecursive(n-1);
+    }
+    public static int twoToTheN(int n){ // Potencia de 2. Ej 2.b resuelto por potencia
+        return (int) Math.pow(2,n);
+    }
+    public static int twoToTheNIterative(int n){ // Potencia de 2. Ej 2.b resuelto por un for
+        int result = 1;
+        for(int i=0;i<n;i++){
+            result*=2;
+        }
+        return result;
+    }
+    public static int twoToTheNRecursive(int n){ // Potencia de 2. Ej 2.b resuelto por recursividad
+        if (n == 0) {
+            return 1;
+        }
+        return 2 * twoToTheNRecursive(n - 1);
+    }
     public static int factorialRecursive(int n){
         if(n==0){
             return 1;
