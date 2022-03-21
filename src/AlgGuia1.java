@@ -2,8 +2,9 @@ public class AlgGuia1 {
 
     public static void main(String[] args) {
 
-        System.out.println(polinomioEvaluado(new int[]{2,8,1},3));
-        System.out.println(hornerIterative(new int[]{2,8,1},3));
+        System.out.println(polinomioEvaluado(new int[]{2,8,1},3));// El algoritmo evalua en la forma de 2+8x+x^2
+        System.out.println(hornerIterative(new int[]{2,8,1},3));// El algoritmo evalua en la forma de 2+8x+x^2
+        System.out.println(hornerRecursive(new int[]{1,8,2},3,2)); //2 = array.length - 1. El algoritmo evalua en la forma de x^2+8x+1
     }
 
     public static int sumOfNaturals(int n){ // Suma de numeros naturales. Ej 1.a resuelto por Gauss
@@ -38,6 +39,34 @@ public class AlgGuia1 {
         }
         return 2 * twoToTheNRecursive(n - 1);
     }
+    public static int hornerRecursive(int[] array,int x,int n){ //Ej 8 Horner recursivo  n = array.length - 1
+        int h;
+        if(n>0)
+            h = hornerRecursive(array, x, n-1);
+        else
+            return array[n];
+
+        return h*x+array[n];
+    }
+
+    public static int hornerIterative(int[] array,int x){ //Ej 8 Horner iterativo evaluado en x
+        int[] aux = new int[array.length];
+        aux[array.length-1] = array[array.length-1];
+        for (int i = array.length-2; i >= 0; i--) {
+            aux[i] = array[i] + aux[i+1]*x;
+        }
+        return aux[0];
+    }
+
+    public static int polinomioEvaluado(int[] array,int n){ //Polinomio en forma c + bx + ax^2...nx^m  Usado para comparar con horner
+        int result = 0;
+        for(int i=0;i<array.length;i++){
+            result+=array[i]*(int)Math.pow(n,i);
+        }
+        return result;
+    }
+
+    //Resolucion del resto de la guia 1
     public static int factorialRecursive(int n){
         if(n==0){
             return 1;
@@ -116,27 +145,4 @@ public class AlgGuia1 {
         }
         return false;
     }
-    public static int hornerRecursive(int[] array,int n){
-        if(n<array.length){
-            return array[n]+hornerRecursive(array,n+1);
-        }
-        return 0;
-    }
-    public static int hornerIterative(int[] array,int n){
-        int[] aux = new int[array.length];
-        aux[array.length-1] = array[array.length-1];
-        for (int i = array.length-2; i >= 0; i--) {
-            aux[i] = array[i] + aux[i+1]*n;
-        }
-        return aux[0];
-    }
-
-    public static int polinomioEvaluado(int[] array,int n){ //Polinomio en forma c + bx + ax^2...nx^m
-        int result = 0;
-        for(int i=0;i<array.length;i++){
-            result+=array[i]*(int)Math.pow(n,i);
-        }
-        return result;
-    }
-
 }
