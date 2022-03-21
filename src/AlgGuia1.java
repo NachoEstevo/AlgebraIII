@@ -4,7 +4,8 @@ public class AlgGuia1 {
 
         System.out.println(polinomioEvaluado(new int[]{2,8,1},3));// El algoritmo evalua en la forma de 2+8x+x^2
         System.out.println(hornerIterative(new int[]{2,8,1},3));// El algoritmo evalua en la forma de 2+8x+x^2
-        System.out.println(hornerRecursive(new int[]{1,8,2},3,2)); //2 = array.length - 1. El algoritmo evalua en la forma de x^2+8x+1
+        System.out.println(hornerRecursive(new int[]{1,8,2},3,2)); //2 = array.length - 1. El algoritmo evalua en la forma de x^2+8x+2
+        System.out.println(isPrime(7));
     }
 
     public static int sumOfNaturals(int n){ // Suma de numeros naturales. Ej 1.a resuelto por Gauss
@@ -39,6 +40,27 @@ public class AlgGuia1 {
         }
         return 2 * twoToTheNRecursive(n - 1);
     }
+
+    public static boolean isPrime(int n){// Ej 6b i. numero entero positivo es primo?
+        if (n == 1) {
+            return true;
+        }
+        for (int i = 2; i <= n / 2; i++) { //n/2 porque no es necesario comprobar hasta la mitad. Java redondea para abajo. En el 7, nos da 3, porque ya del 4 en adelante no es necesario comprobar.
+            if (n % i == 0) { //Empezando del 2 y yendo hasta la mitad, si algun numero es divisor, no es primo. Contemplamos el caso del 1 antes y el caso del mismo n en el for.
+                return false;
+            }
+        }
+        return true;
+    }
+    public static int firstPrimeAfter(int n){// Ej 6b ii. primer numero primo despues de n (si el n es primo lo devuelve)
+        if (isPrime(n)) {
+            return n;
+        }
+        else {
+            return firstPrimeAfter(n+1);
+        }
+    }
+
     public static int hornerRecursive(int[] array,int x,int n){ //Ej 8 Horner recursivo  n = array.length - 1
         int h;
         if(n>0)
