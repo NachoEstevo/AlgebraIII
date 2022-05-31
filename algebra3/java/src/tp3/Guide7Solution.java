@@ -5,6 +5,7 @@ import tp3.utils.MatrixMatrixOperation;
 import tp3.utils.MatrixVectorOperation;
 import tp3.utils.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Guide7Solution implements Guide7 {
@@ -174,7 +175,70 @@ public class Guide7Solution implements Guide7 {
     }
 
     @Override
-    public List<double[]> exercise_4(List<double[]> A) {
-        throw new UnsupportedOperationException("TODO");
+    public List<double[]> exercise_4(List<double[]> A) {//Gram Smith Algorithm
+
+
+        ArrayList<double[]> finalArray= new ArrayList<>();
+
+        //I set the first vector because it never changes, it's always the first vector of the array receive divided between it's length
+        finalArray.add(multiplyScalarPerVector(1/(calculateVectorLength(A.get(0))), A.get(0)));
+
+        for(int i=1; i<A .size(); i++)
+        {
+            double[] newVector= substractVectors(A .get(i), proyection(finalArray.get(i-1),A .get(i)));
+            for(int e=i-1;e>0;e--)
+            {
+                newVector= substractVectors(newVector, proyection(finalArray.get(e-1),A .get(i)));
+            }
+            newVector= multiplyScalarPerVector(1/(calculateVectorLength(newVector)), newVector);
+            finalArray.add(newVector);
+        }
+        return finalArray;
+    }
+
+    private double[] proyection(double[] array1, double[] array2)
+    {
+        double dotProductResult= dotProduct(array1,array2);
+        return multiplyScalarPerVector(dotProductResult, array1);
+    }
+
+
+    private double dotProduct(double[] vector1, double[] vector2)
+    {
+        double result = 0;
+        for(int i=0; i<vector1.length; i++)
+        {
+            result +=vector1[i]*vector2[i];
+        }
+        return result ;
+    }
+
+    private double[] multiplyScalarPerVector(double scalar, double[] vector)
+    {
+        double[] newVector = new double[vector.length];
+        for(int i=0; i<vector.length; i++)
+        {
+            newVector[i] = scalar*vector[i];
+        }
+        return newVector;
+    }
+
+    private double[] substractVectors(double[] vector1, double[] vector2)
+    {
+        double[] finalVector= new double[vector1.length];
+        for(int i=0; i<vector1.length; i++)
+        {
+            finalVector[i] = vector1[i] - vector2[i];
+        }
+        return finalVector;
+    }
+
+    private double calculateVectorLength(double[] vector)
+    {
+        double result = 0;
+        for (double v : vector) {
+            result += Math.pow(v, 2);
+        }
+        return Math.sqrt(result );
     }
 }
