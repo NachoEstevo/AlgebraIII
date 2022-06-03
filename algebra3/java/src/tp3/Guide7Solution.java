@@ -133,15 +133,28 @@ public class Guide7Solution implements Guide7 {
         //A.X con matrices tridiagonales. Optimzar. evitar operaciones con 0s.
         //Matrix tridiagonal no tiene ceros en la diagonal principal y en la diagonal secundaria inferior y superior.
 
-        //make the product of two matrices
+        int[] result = new int[op.getVector().getVectorSize()];
 
-        MatrixVectorOperation op1 = new MatrixVectorOperation(new Matrix(new int[][]{{1, 1, 9}, {1, 1, 1}, {9, 1, 1}}), new Vector(new int[]{2, 3, 4}));
+        for (int i = 0; i < op.getMatrixRows(); i++) {
+            int suma = 0;
+                if (i == 0) { //Si es la primera fila, no tenemos que sumar los valores de la diagonal secundaria inferior
+                    suma += op.multiplyPositions(i, i, i);
+                    suma += op.multiplyPositions(i, i+1, i+1);
 
-        throw new UnsupportedOperationException("TODO");
+                } else if (i == op.getMatrixRows() - 1) { //Si es la ultima fila, no tenemos que sumar los valores de la diagonal secundaria superior
+                    suma += op.multiplyPositions(i, i, i);
+                    suma += op.multiplyPositions(i, i-1, i-1);
 
+                } else { //Si no es la primera ni la ultima, sumamos los valores de la diagonal secundaria inferior y superior
+                    suma += op.multiplyPositions(i, i, i);
+                    suma += op.multiplyPositions(i, i+1, i+1);
+                    suma += op.multiplyPositions(i, i-1, i-1);
+                }
 
-
-
+            result[i] = suma;
+        }
+            op.setResult(new Vector(result));
+            return op;
     }
 
     @Override

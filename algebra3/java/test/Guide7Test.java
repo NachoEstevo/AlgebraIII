@@ -181,12 +181,12 @@ public class Guide7Test extends SkipRule {
 
     @Test
     public void exercise_3_c_i() {
-        MatrixVectorOperation op1 = new MatrixVectorOperation(new Matrix(new int[][]{{1, 1, 9}, {1, 1, 1}, {9, 1, 1}}), new Vector(new int[]{2, 3, 4}));
+        MatrixVectorOperation op1 = new MatrixVectorOperation(new Matrix(new int[][]{{1, 1, 0}, {1, 1, 1}, {0, 1, 1}}), new Vector(new int[]{2, 3, 4}));
         assertEquals(new Vector(new int[]{5, 9, 7}), guide7.exercise_3_c_i(op1).getResult());
         assertTrue(op1.getCounter() <= 14);
         assertTrue(op1.getCounter() > 0);
 
-        MatrixVectorOperation op2 = new MatrixVectorOperation(new Matrix(new int[][]{{1, 1, 9, 9}, {1, 1, 1, 9}, {9, 1, 1, 1}, {9, 9, 1, 1}}), new Vector(new int[]{1, 2, 3, 4}));
+        MatrixVectorOperation op2 = new MatrixVectorOperation(new Matrix(new int[][]{{1, 1, 0, 0}, {1, 1, 1, 0}, {0, 1, 1, 1}, {0, 0, 1, 1}}), new Vector(new int[]{1, 2, 3, 4}));
         assertEquals(new Vector(new int[]{3, 6, 9, 7}), guide7.exercise_3_c_i(op2).getResult());
         assertTrue(op2.getCounter() <= 20);
         assertTrue(op2.getCounter() > 0);
@@ -194,7 +194,7 @@ public class Guide7Test extends SkipRule {
 
     @Test
     public void exercise_3_c_ii() {
-        MatrixMatrixOperation op1 = new MatrixMatrixOperation(new Matrix(new int[][]{{1, 1, 9}, {1, 1, 1}, {9, 1, 1}}), new Matrix(new int[][]{{2, 2, 9}, {2, 2, 2}, {9, 2, 2}}));
+        MatrixMatrixOperation op1 = new MatrixMatrixOperation(new Matrix(new int[][]{{1, 1, 9}, {1, 1, 1}, {0, 1, 1}}), new Matrix(new int[][]{{2, 2, 9}, {2, 2, 2}, {9, 2, 2}}));
         assertEquals(new Matrix(new int[][]{{3, 3, 0}, {3, 3, 3}, {0, 3, 3}}), guide7.exercise_3_c_ii(op1).getResult());
         assertTrue(op1.getCounter() <= 16);
         assertTrue(op1.getCounter() > 0);
